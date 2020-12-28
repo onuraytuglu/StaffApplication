@@ -1,2 +1,2 @@
 # StaffApplication
- İş acileyeti ve durum  takibi
+ İş aciliyeti ve durum  takibi
