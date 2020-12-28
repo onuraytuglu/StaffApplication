@@ -1,0 +1,56 @@
+﻿@model List<CustomersViewModel>
+
+@{
+    Layout="~/Views/Shared/_Layout.cshtml";
+}
+@*Html.Partial("_Kategoriler")*@
+
+
+<partial name="_Kategoriler"/>
+
+   
+ <p class="text-danger lead">
+    Hello from our View Template!
+ </p>
+
+@await Component.InvokeAsync("Products")
+
+ @*<a asp-area=""  asp-action="Index" asp-controller="Home" asp-route-id="1">Link </a>
+
+<kategoriList></kategoriList>
+
+<onur gelen-data="Başka Yazı"></onur>
+
+<table>
+    <tr>
+
+        <td>ViewBag.Isim</td>
+        <td>@ViewBag.Isim</td>
+
+    </tr>
+
+    <tr>
+
+        <td>ViewData["Isim"]</td>
+        <td>@ViewData["Isim"]</td>
+
+    </tr>
+
+    <tr>
+
+        <td>TempData["Isim"]</td>
+        <td>@ViewData["Isim"]</td>
+
+    </tr>
+
+
+</table>*@
+    @*<h4>Modelimden gelen data</h4>
+    @foreach (var item in Model)
+    {
+        <p>@item.Ad</p>
+    }*@
+
+
+
+

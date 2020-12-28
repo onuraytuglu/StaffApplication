@@ -1,0 +1,108 @@
+﻿@model List<MissionListViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@if (Model.Count != 0)
+{
+    <a asp-action="AddMission" class="btn btn-info my-2">Add A New Mission</a>
+    <table class="table table-hover">
+        <caption>List of missions</caption>
+        <tr>
+            <th>Name</th>
+            <th>Definition</th>
+            <th>Date</th>
+            <th>Urgency Status</th>
+            <th>Process</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td>@item.Aciklama</td>
+                <td>@item.OlusturulmaTarih.ToString("D")</td>
+                <td>@item.Urgency.Definition</td>
+                <td>
+                    <a asp-action="UpdateMission" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a href="" data-toggle="modal" data-target="#DeleteWindow" data-things="@item.Id">Delete</a>
+
+                </td>
+
+            </tr>
+        }
+    </table>
+
+
+}
+else
+{
+
+    <div class="text-center lead mt-3 p-3 ">
+        <p class="lead">
+            No task found
+        </p>
+        <a asp-action="AddMission" class="btn btn-info">Add A New Mission</a>
+    </div>
+
+}
+
+<!-- Modal -->
+<div class="modal fade" id="DeleteWindow" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Warning!!! </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    x
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="btnDelete" type="button" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JavaScript{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("DeleteWindow").on(
+                "show.bs.modal", function (event) {
+
+
+                    let tetikleyenElement = $(event.relatedTarget);
+                    let id = tetikleyenElement.data("things");
+
+                    $("#btnDelete").click(function () {
+                        $.ajax({
+
+                            type: "Get",
+                            url: "./Mission/DeleteMission",
+                            data: { id: id },
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8;",
+                            success: function () {
+                                alert("Done");
+
+                            },
+                            error: function (error) {
+
+                                alert(error.statusText);
+                            }
+                        })
+                    });
+                })
+        });
+
+
+    </script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+}
+
+

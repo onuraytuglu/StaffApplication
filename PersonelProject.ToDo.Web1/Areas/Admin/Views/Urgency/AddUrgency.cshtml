@@ -1,0 +1,22 @@
+﻿@model UrgencyAddViewModel
+@{
+    ViewData["Title"] = "AddUrgency";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form class="w-75 mx-auto p-3" method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Definition"></label>
+        <span asp-validation-for="Definition" class="text-danger"></span>
+        <input asp-for="Definition" type="text" class="form-control" />
+
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+</form>
+
+@section JavaScript{
+
+
+    <script src="~/lib/jqueryValidate/jquery.validate.min.js"></script>
+    <script src="~/lib/jqueryUnob/jquery.validate.unobtrusive.min.js"></script>
+}

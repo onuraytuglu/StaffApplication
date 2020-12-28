@@ -1,0 +1,125 @@
+﻿@model MissionListViewModel
+@{
+    ViewData["Title"] = "AssignPersonel";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string s = (string)ViewBag.Search;
+}
+
+<div class="row mt-2">
+    <div class="col-md-12">
+
+        @if (!string.IsNullOrWhiteSpace(s))
+        {
+            <a asp-action="AssignPersonel" asp-route-id="@Model.Id">Close</a>
+        }
+
+        <form asp-action="AssignPersonel" method="get" class="text-right">
+            <input type="text" name="s" class="form-control-sm border border-primary border-top-0 border-left-0 border-right-0" />
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+
+        </form>
+    </div>
+    <div class="col-md-4">
+
+        <div class="card border border-primary">
+            <div class="card-header">
+                <h4 class="text-danger lead pt-2 ">Mission Informations</h4>
+            </div>
+            <div class="card-body">
+
+                <h5 class="card-title">@Model.Ad</h5>
+                <p class="card-text">
+                    @Model.Aciklama
+                </p>
+                <p class="card-text">
+                    <strong>Urgency Case </strong><span class="badge badge-info">
+                        @Model.Urgency.Definition
+                    </span>
+
+                </p>
+                <p class="card-text">
+                    <small>
+                        @Model.OlusturulmaTarih.ToString("D")
+
+                    </small>
+
+
+                </p>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+    <div class="col-md-8">
+
+
+        @foreach (var item in (List<AppUserListViewModel>)ViewBag.Personeller)
+        {
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="~/img/@item.Picture" alt="@item.Name">
+                        <a asp-action="AssignmentPersonel" asp-route-PersonelId="@item.Id" asp-route-MissionId="@Model.Id" class="btn btn-info card-img-bottom ">Assign</a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name @item.SurName</h5>
+                            <p class="card-text">
+
+                                <bringMissionUserId app-user-id="@item.Id" ></bringMissionUserId>
+
+
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">@item.Email</small>
+                                
+                            
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @if (!string.IsNullOrWhiteSpace(s))
+                {
+                    @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                    {
+                        <li class="page-item @(ViewBag.ActivePage==i?"active":"" )">
+                            <a class="page-link" asp-action="AssignPersonel"
+                               asp-route-id="@Model.Id" asp-route-page="@i" asp-route-s="@s">@i</a>
+                        </li>
+                    }
+
+                }
+                else
+                {
+
+                    @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                    {
+                        <li class="page-item @(ViewBag.ActivePage==i?"active":"" )">
+                            <a class="page-link" asp-action="AssignPersonel"
+                               asp-route-id="@Model.Id" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+
+                }
+
+
+            </ul>
+        </nav>
+
+
+
+    </div>
+
+
+</div>
+

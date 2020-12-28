@@ -1,0 +1,82 @@
+﻿@model List<MissionAllListViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Count != 0)
+{
+    <table class="table table-hover mt-4">
+        <tr>
+            <th>Name</th>
+            <th>Definition</th>
+            <th>Date</th>
+            <th>Personel</th>
+            <th>Urgency</th>
+            <th>Reports Count</th>
+            <th>Process</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td>@item.Aciklama</td>
+                <td>@item.OlusturulmaTarih.ToString("D")</td>
+                <td>
+                    @{
+                        if (item.AppUser == null)
+                        {
+                            <span class="badge badge-danger">No staff working</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-success">@item.AppUser.Name  working</span>
+                        }
+                    }
+                </td>
+
+                <td>
+                    <span class="badge badge-info">
+                        @item.Urgency.Definition.ToUpper()<strong>!!!</strong>
+                    </span>
+                </td>
+                <td>
+                   
+                    @item.Reports.Count
+
+
+                </td>
+                <td>
+                    @{
+                        if (item.AppUser == null)
+                        {
+                            <a asp-action="AssignPersonel" asp-route-id="@item.Id" class="btn btn-warning">Assign Personel</a>
+                        }
+                        else
+                        {
+                            <a asp-action="ShowDetail" asp-route-id="@item.Id" class="btn btn-warning">Show Details</a>
+                        }
+                    }
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+else
+{
+    <div class="my-2 text-danger lead ">
+
+        No task
+
+
+
+    </div>
+}
+
+
+
+
+

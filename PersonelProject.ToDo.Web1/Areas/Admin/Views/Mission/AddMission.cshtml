@@ -1,0 +1,43 @@
+﻿@model MissionAddViewModel
+@{
+    ViewData["Title"] = "AddMission";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-action="AddMission" method="post" class="w-75 mx-auto p-3">
+    <div class="form-group">
+
+        <label>Name</label>
+        <span asp-validation-for="Ad" class="text-danger"></span>
+        <input type="text" asp-for="Ad" class="form-control" />
+
+    </div>
+    <div class="form-group">
+
+        <label>Definition</label>
+        <span asp-validation-for="Aciklama" class="text-danger"></span>
+        <textarea asp-for="Aciklama" class="form-control">
+
+        </textarea>
+
+    </div>
+    <div class="form-group">
+
+        <label>Select Urgency</label>
+        <span asp-validation-for="UrgencyId" class="text-danger"></span>
+        <select asp-for="UrgencyId" class="form-control" asp-items="ViewBag.Urgencies">
+            <option hidden value="-1">Select</option>
+        </select>
+
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+</form>
+
+
+@section JavaScript{
+
+
+    <script src="~/lib/jqueryValidate/jquery.validate.min.js"></script>
+    <script src="~/lib/jqueryUnob/jquery.validate.unobtrusive.min.js"></script>
+}
+

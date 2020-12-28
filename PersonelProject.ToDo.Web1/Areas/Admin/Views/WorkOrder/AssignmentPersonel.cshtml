@@ -1,0 +1,87 @@
+﻿@model PersonelAssignListViewModel
+@{
+    ViewData["Title"] = "AssignmentPersonel";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row mt-2">
+
+    <div class="col-md-4">
+        <div class="card border border-primary">
+            <div class="card-header">
+                <h4 class="text-danger lead pt-2 ">Mission Informations</h4>
+            </div>
+            <div class="card-body">
+
+                <h5 class="card-title">@Model.Mission.Ad</h5>
+                <p class="card-text">
+                    @Model.Mission.Aciklama
+                </p>
+                <p class="card-text">
+                    <strong>Urgency Case </strong><span class="badge badge-info">
+                        @Model.Mission.Urgency.Definition
+                    </span>
+
+                </p>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+    <div class="col-md-8">
+        
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="card-title">Staff Information</h5>
+
+            </div>
+            
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="~/img/@Model.AppUser.Picture" alt="@Model.AppUser.Name">
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.AppUser.Name @Model.AppUser.SurName</h5>
+                        <p class="card-text">
+
+                            <bringMissionUserId app-user-id="@Model.AppUser.Id"></bringMissionUserId>
+
+
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">@Model.AppUser.Email</small>
+
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <form asp-action="AssignPersonel" method="post">
+            <p>
+                Personnel will be assigned to the following task. Are you sure you want to do this?
+            </p>
+            <div class="form-group text-center">
+                <a asp-action="AssignPersonel" asp-route-id="@Model.Mission.Id" class="btn btn-warning">No</a>
+                
+                <input type="hidden" name="PersonelId" value="@Model.AppUser.Id" />
+                
+                <input type="hidden" name="MissionId" value="@Model.Mission.Id" />
+                
+                <button type="submit" class="btn btn-info">Yes</button>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+

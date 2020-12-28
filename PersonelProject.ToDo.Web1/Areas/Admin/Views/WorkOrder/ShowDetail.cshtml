@@ -1,0 +1,45 @@
+﻿@model MissionAllListViewModel
+@{
+    ViewData["Title"] = "ShowDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Reports.Count > 0)
+{
+    
+    <table class="table table-hover table-sm mt-2 text-center table-bordered" >
+        <tr>
+            <th colspan="2">Reports written by @Model.AppUser.Name  @Model.AppUser.SurName staff on the @Model.Ad task </th>
+        </tr>
+        <tr>
+
+            <th>Definition</th>
+            <th>Detail</th>
+
+        </tr>
+        @foreach (var report in Model.Reports)
+        {
+            <tr>
+                <td>@report.Definition</td>
+                <td>@report.Detail</td>
+
+            </tr>
+        }
+    </table>
+
+}
+else
+{
+    <div class="border border-dark mt-2 text-center">
+
+        Your @Model.AppUser.Name @Model.AppUser.SurName staff is currently working for the @Model.Ad task and there is no report.
+
+    </div>
+
+
+
+
+}
+
+
+
